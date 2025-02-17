@@ -1,0 +1,36 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+
+
+my following view
+{% for post in posts %}
+<li>
+    <div class="Post"> 
+      
+      <div class = userInfo>
+        <span class = "LHS" data-user="{{ post.user.username }}" data-url="{% url 'profileView' username=post.user.username %}"
+        > {{ post.user }} <span class ="smallInfo"> @{{ post.user }}</span>
+        </span> 
+        <span class = "RHS">{{ post.timestamp }}</span>
+      </div>
+      
+      <div class = "postInfo">
+        <span>{{ post.body }}</span>
+        <span>{{ post.likes }}</span>
+      </div>
+
+      <div class = "postButtons">
+        <p class = "likeButton" id = "likeButton" data-url = "{{ user.username }}" data-postid = "{{ post.id }}" data-user = "{{ user.username }}">👍 Likes : {{ post.likes }}</p>
+        <p class = "dislikeButtons" id = "dislikeButton" data-user = "{{ user.username }}"> 👎 Dislikes: {{ post.dislikes }} </p> 
+        <p class = "postButton" >💬 Comment Section </p>
+
+      </div>
+
+    </div>
+</li>
+{% endfor %}
+
+{% endblock %}
+

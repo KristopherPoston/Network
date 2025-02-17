@@ -1,0 +1,62 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+
+
+ <h1 class = "allpostsCenter"> All Posts </h1>
+
+ <hr class = "color">
+
+<ul id = "listOfPosts">
+    {% for post in page_object %}
+    <li>
+        <div class="Post"> 
+          
+          <div class = userInfo>
+            <span class = "LHS" data-user="{{ post.user.username }}" data-url="{% url 'profileView' username=post.user.username %}"
+            > {{ post.user }} <span class ="smallInfo"> @{{ post.user }}</span>
+            </span> 
+            <span class = "RHS"> 
+              {% if post.user.username == request.user.username %} 
+              <button class = "editButton" data-postid = "{{ post.id }}">Edit</button> 
+              {% endif %}
+              {{ post.timestamp }}</span>
+          </div>
+          
+          <div class = "postInfo">
+            <span class = "postBody" data-postid = "{{ post.id }}">{{ post.body }}</span>
+            <span>{{ post.likes }}</span>
+          </div>
+
+          <div class = "postButtons">
+            <p class = "likeButton" id = "likeButton" data-url = "{{ user.username }}" data-postid = "{{ post.id }}" data-user = "{{ user.username }}">👍 Likes : {{ post.likes }}</p>
+            <p class = "dislikeButtons" id = "dislikeButton" data-postid = "{{ post.id }}" data-user = "{{ user.username }}"> 👎 Dislikes: {{ post.dislikes }} </p> 
+            <p class = "postButton" >💬 Comment Section </p>
+
+          </div>
+
+        </div>
+    </li>
+    {% endfor %}
+</ul> 
+
+<div class="pagination">
+  {% if page_object.has_previous %}
+      <span><a href="?page=1">First </a></span>
+      <span><a href="?page={{ page_object.previous_page_number }}">&nbsp; Previous</a></span>
+  {% endif %}
+
+  <span class="current">
+    &nbsp; Page {{ page_object.number }} of {{ page_object.paginator.num_pages }}&nbsp;
+  </span>
+
+  {% if page_object.has_next %}
+      <span><a href="?page={{ page_object.next_page_number }}">Next&nbsp;</a></span>
+      <span><a href="?page={{ page_object.paginator.num_pages }}">Last </a></span>
+  {% endif %}
+</div>
+
+{% endblock %}
+
+

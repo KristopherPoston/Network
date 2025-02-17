@@ -1,0 +1,52 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+<div id = "profileName">
+ 
+    <h6>
+    {{ user.username }}
+    </h6>
+
+    <h4 class = "user_following_count" data-userProfile="{{ user.username }}" data-followingCount = "{{ following_count }}" data-currentUser = "{{ request.user.username }}">  Following: {{  following_count }} </h4>
+    <h4 class = "user_followers_count" data-userProfile="{{ user.username }}" data-followersCount = "{{ followers_count }}" data-currentUser = "{{ request.user.username }}" > Followers: {{ followers_count }} </h4>
+
+{% if user.username != request.user.username %}
+    {% if is_following != True %}
+       <button id = "followButton" class = "followButton" data-userProfile="{{ user.username }}" data-currentUser = "{{ request.user.username }}">Follow</button>
+    {% else %}
+       <button id = "followButton" class = "followButton" data-userProfile="{{ user.username }}" data-currentUser = "{{ request.user.username }}">Unfollow</button>
+    {% endif %}
+{% endif %}
+
+
+
+</div>
+    
+Posts:
+<ul class="listOfPosts">
+    {% for post in userPosts %}
+    <li>
+        <div class="Post">
+            <div class="userInfo">
+                <span class="LHS" data-user = "{{ user.username }}" data-url="{% url 'profileView' username=post.user.username %} data-postUser = "{{ post.user }}">{{ post.user }}<span class="smallInfo">@{{ post.user }}</span></span>
+                <span class="RHS">{{ post.timestamp }}</span>
+            </div>
+
+            <div class="postInfo">
+                <span>{{ post.body }}</span>
+                <span>{{ post.likes }}</span>
+            </div>
+            
+            <div class="postButtons">
+                <p class="likeButton" id="likeButton" data-user="{{ user.username }}" data-postid="{{ post.id }}">👍 Likes: {{ post.likes }}</p>
+                <p class="dislikeButton" id="dislikeButton" data-postid="{{ post.id }}" data-user="{{ user.username }}">👎 Dislikes: {{ post.dislikes }}</p>
+                <p class="postButton">💬 Comment Section</p>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+
+      </ul>
+    
+{% endblock %}

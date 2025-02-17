@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Social Network{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'network/styles.css' %}" rel="stylesheet">
+        <script src = "{% static 'network/hand_made.js' %}">  </script>
+    </head>
+    <body>
+
+        <nav class="navbar-navbar-expand-lg-navbar-light-bg-light">
+          <!--  <a class="navbar-brand" href="#">Network</a> -->
+          
+            <div id = "navBar">
+              <ul class="navbar-navmr-auto" >
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                      <!--  <a class="nav-link" href="#"><strong>{{ user.username }}</strong></a> -->
+                        <button id = "profileButton" class = "LHS"  data-user="{{ user.username }}" data-url="{% url 'profileView' username=user.username %}
+                        "> {{ user.username }} </button>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                  <!-- <a class="nav-link" href="{% url 'allPosts' %}">All Posts</a> -->
+                   <button id ="AllPostbutton" class = "Navbutton" data-url = "{% url 'allPosts' %}"> All Posts Page </button>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <!--<a class="nav-link" href="#">Following</a>  -->       
+
+                        <button id = "followingButton" class = "Navbutton" data-url = "{% url 'followingView' %}"> Following </button>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'createPostViewPage' %}">New Post</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        {% if request.user.is_authenticated %}
+                        <button id = "LogOutbutton" class = "Navbutton" data-url = "{% url 'login' %}"> Log Out</button> 
+                        {% else %}
+                        <button id = "LogOutButton" class = "Navbutton" data-url = "{% url 'login' %}"> Log In </button>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        <button id = "RegisterButton" class = "Navbutton" data-url = "{% url 'register' %}"> Register </button>
+                    </li>
+                {% endif %}
+              </ul>
+            </div>
+          </nav>
+        
+        <div class="body">
+            {% block body %}
+            {% endblock %}
+        </div>
+        {% block extrascripts %}{% endblock %}
+    </body>
+</html>

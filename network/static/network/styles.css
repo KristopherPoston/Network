@@ -1,0 +1,126 @@
+#allPostsDisplay{
+
+display: flex;
+flex-direction: column;
+}
+
+.Post{
+    display: flex;
+    flex-direction: column;
+    background-color : #dfedf4
+}
+
+.userInfo{
+    display: flex;
+    flex-direction: row;
+    color: black;
+}
+
+.postInfo{
+    display: flex;
+    gap : 10px;
+    flex-direction: row;
+    color: black;
+}
+
+.LHS:hover{
+    opacity: 0.6;
+    color:green;
+}
+
+.RHS{
+    margin-left: auto;
+}
+
+.smallInfo{
+    font-size: 13px;
+    font-style: italic;
+}
+
+.postButtons{
+    display: flex;
+    color: black;
+    justify-content: center; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.postLikes{
+    color: black;
+}
+
+.postButtons p:hover {
+    color: lightgray;
+    cursor: pointer;
+}
+
+.class{
+    color: darkblue;
+}
+
+#navBar{
+    display: flex;
+    flex-direction: row;
+    background-color: #dfedf4;
+}
+
+.navbar-navmr-auto{
+    display:flex;
+    list-style-type: none;
+    padding-top: 10px;
+    gap:50px;
+    background-color: #dfedf4;
+}
+
+.Navbutton{
+    border-radius: 25px;
+    color: black;
+    background-color: #3c87a3;
+}
+
+.Navbutton:hover{
+    opacity: 0.8;
+}
+
+.listOfPosts{
+    list-style-type: none;
+}
+
+body{
+    background-color: #dfedf4;
+}
+
+.listOfPosts li { 
+    border: 1px solid black;
+    margin-bottom: 2px;
+    margin-right: 10px;
+ }
+
+.navbar-navbar-expand-lg-navbar-light-bg-light{
+    background-color: #dfedf4;
+}
+
+.allpostsCenter{
+    margin-left: 40px;
+    color: black;
+}
+
+.likeButton{
+    display: flex;
+    color: black;
+    justify-content: center; 
+    align-items: center; 
+    gap: 10px;
+}
+
+.likeButton p:hover {
+    color: lightgray;
+    cursor: pointer;
+}
+
+#profileName{
+    display:column;
+    gap: 10px;
+    background-color: #f4a261;
+}
+
