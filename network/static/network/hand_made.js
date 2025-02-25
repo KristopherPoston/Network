@@ -71,7 +71,7 @@ function likeButtonIncrement() {
         var user = likeButton.getAttribute("data-user");
         var csrftoken = getCookie('csrftoken'); 
 
-        var dislikeButton = document.querySelector(`.dislikeButton[data-postid="${postID}"]`);
+        var dislikeButton = document.querySelector(`.dislikeButtons[data-postid="${postID}"]`);
 
         likeButton.onclick = function() {
             fetch('/incrementLikes', {
@@ -85,7 +85,12 @@ function likeButtonIncrement() {
                     postID: postID
                 })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 likeButton.innerHTML = `👍 Likes: ${data.likes}`;
                 
@@ -105,6 +110,16 @@ function likeButtonIncrement() {
 function dislikeButtonIncrement() { 
     var likeButtons = document.querySelectorAll(".likeButton");
     var dislikeButtons = document.querySelectorAll(".dislikeButtons"); 
+
+    if (!likeButtons.length) {
+        console.warn("Like button not found in the DOM.");
+        return; 
+    }
+
+    if (!dislikeButtons.length) {
+        console.warn("Dislike button not found in the DOM.");
+        return; 
+    }
     dislikeButtons.forEach(function(dislikeButton) { 
         var postID = dislikeButton.getAttribute("data-postid");
         var user = dislikeButton.getAttribute("data-user");
@@ -123,7 +138,12 @@ function dislikeButtonIncrement() {
                     postID: postID
                 })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 dislikeButton.innerHTML = `👎 Dislikes: ${data.dislikes}`;
            
@@ -186,7 +206,6 @@ function editButtonLogic() {
                 console.log(postBody);
                 count = 0;
 
-                // Make a request to Django server that sends in new postBody and postID
                 var postID = editButton.getAttribute("data-postid");
                 var postBodySpan = document.createElement("span");
                 postBodySpan.className = "postBody";
@@ -203,7 +222,12 @@ function editButtonLogic() {
                         postBody: postBody
                     })
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     postBodySpan.innerHTML = postBody;
                     postBodyObject.parentNode.replaceChild(postBodySpan, postBodyObject);
